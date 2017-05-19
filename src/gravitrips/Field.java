@@ -25,15 +25,6 @@ public class Field {
     }
 
 
-    public static int getColumn() {
-        return COLUMNS;
-    }
-
-
-    public char getEmpty() {
-        return EMPTY;
-    }
-
     public void printField() {
         int row;
         for (row = 0; row < 7; ++row) {
@@ -63,6 +54,7 @@ public class Field {
 
     public boolean isLegalMove(int row, int column) {
         return this.field[row][column] == EMPTY;
+
     }
 
     public void applyMove(Move m, Player player) {

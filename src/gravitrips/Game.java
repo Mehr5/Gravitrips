@@ -1,5 +1,7 @@
 package gravitrips;
 
+import org.omg.CORBA.TRANSACTION_REQUIRED;
+
 import java.util.Scanner;
 
 
@@ -13,7 +15,7 @@ public class Game {
         scanner = new Scanner(System.in);
         newField = new Field();
         humanPlayer = new HumanPlayer('X');
-        botPlayer= new BotPlayer('O');
+        botPlayer = new BotPlayer('O');
     }
 
     public void run() {
@@ -49,18 +51,28 @@ public class Game {
 
         if (this.newField.won(this.botPlayer)) {
             System.out.println("Winner is - Bot");
-        } else {
-            System.out.println("Draw!");
         }
 
     }
 
     private int humanInput() {
+
         System.out.print("Enter column from 1 to 7: ");
         int column = this.scanner.nextInt();
-        --column;
+        while (column < 1 && column > 7) {
+            try {
+                System.out.println("The number you have entered does not meat the requirements.");
+                System.out.println(" Please choose number between 1 and 7");
+                column = this.scanner.nextInt();
+                if (column >= 1 && column <= 7) {
+                    break;
+                }
+            } catch (Exception exc) {
+                System.out.println("Invalid input. Please enter number between 1 and 7");
+            }
+        }
+        column--;
         return column;
-
     }
 
     private int computerInput() {
@@ -72,25 +84,25 @@ public class Game {
         boolean canMove = false;
 
         do {
-            if(player == this.humanPlayer && !this.newField.isLegalMove(row, column)) {
-               row --;
-                if(row < 0) {
+            if (player == this.humanPlayer && !this.newField.isLegalMove(row, column)) {
+                row--;
+                if (row < 0) {
                     System.out.println("This field is busy!");
                     column = this.humanInput();
                     row = this.newField.getRow() - 1;
                 }
-            } else if(player == this.botPlayer && !this.newField.isLegalMove(row, column)) {
-                --row;
-                if(row < 0) {
+            } else if (player == this.botPlayer && !this.newField.isLegalMove(row, column)) {
+                row--;
+                if (row < 0) {
                     column = this.computerInput();
                     row = this.newField.getRow() - 1;
                 }
             }
 
-            if(this.newField.isLegalMove(row, column)) {
+            if (this.newField.isLegalMove(row, column)) {
                 canMove = true;
             }
-        } while(!canMove && !this.newField.draw());
+        } while (!canMove && !this.newField.draw());
 
         this.newField.applyMove(player.move(column, row), player);
     }
