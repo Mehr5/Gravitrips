@@ -1,7 +1,5 @@
 package gravitrips;
 
-import org.omg.CORBA.TRANSACTION_REQUIRED;
-
 import java.util.Scanner;
 
 
@@ -59,16 +57,14 @@ public class Game {
 
         System.out.print("Enter column from 1 to 7: ");
         int column = this.scanner.nextInt();
-        while (column < 1 && column > 7) {
-            try {
-                System.out.println("The number you have entered does not meat the requirements.");
-                System.out.println(" Please choose number between 1 and 7");
-                column = this.scanner.nextInt();
-                if (column >= 1 && column <= 7) {
-                    break;
-                }
-            } catch (Exception exc) {
-                System.out.println("Invalid input. Please enter number between 1 and 7");
+        while (column < 1 || column > 7) {
+
+            System.out.println("The number you have entered does not meet the requirements.");
+            System.out.println(" Please choose number between 1 and 7");
+            column = this.scanner.nextInt();
+
+            if (column >= 1 && column <= 7) {
+                break;
             }
         }
         column--;
