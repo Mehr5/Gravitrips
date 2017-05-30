@@ -57,7 +57,7 @@ public class Field {
 
     }
 
-    public void applyMove(Move m, Player player) {
+    public void applyMove(Player.Move m, Player player) {
         this.field[m.getRow()][m.getColumn()] = player.getSymbol();
     }
 
