@@ -7,10 +7,6 @@ class HumanPlayer extends Player {
         super(symbol);
     }
 
-
-    private static Scanner scanner;
-
-
     public Move move(int column, int row) {
         return new Move(column, row);
     }
@@ -18,10 +14,11 @@ class HumanPlayer extends Player {
     @Override
     public int makeMove() throws NullPointerException {
 
+        Scanner scanner = new Scanner(System.in);
+
         System.out.print("Enter column from 1 to 7: ");
         int column = scanner.nextInt();
-        if (scanner == null)
-            throw new IllegalArgumentException("Scanner cannot be null");
+
 
         while (column < 1 || column > 7) {
 

@@ -1,109 +1,78 @@
 package gravitrips;
+
 import java.util.Scanner;
 
 
 public class Game {
     private Scanner scanner;
-    private Field newField;
-    private Player humanPlayer;
-    private Player botPlayer;
+    private Field field;
+    private Player player1;
+    private Player player2;
+    private Player currentPlayer;
 
     public Game() {
         scanner = new Scanner(System.in);
-        newField = new Field();
-        humanPlayer = new HumanPlayer('X');
-        botPlayer = new BotPlayer('O');
+        field = new Field();
+        player1 = new HumanPlayer('X');
+        player2 = new BotPlayer('O');
+    }
+
+    public void changePlayer() {
+        if (currentPlayer == player1) {
+            currentPlayer = player2;
+        } else {
+            currentPlayer = player1;
+        }
+    }
+
+    private void nextInputIsNotLegal(int column, int row, Player player) {
+        boolean canMove = false;
+
+        while (!canMove && !field.draw()) {
+            if (!field.isLegalMove(row, column)) {
+                row--;
+                if (row < 0) {
+                    System.out.println("This field is  busy");
+                    column = currentPlayer.makeMove();
+                    row = field.getRow() - 1;
+                }
+            }
+            if (field.isLegalMove(row, column)) {
+                canMove = true;
+            }
+            field.applyMove(player.move(column, row), player);
+            changePlayer();
+        }
     }
 
     public void run() {
-        newField.createNewGameField();
-        int row = newField.getRow() - 1;
+        field.createNewGameField();
+        int row = field.getRow() - 1;
 
-        do {
-            newField.printField();
+        while (!field.won(player1) && !field.won(player2)) {
+            field.printField();
             int column;
-            if (!newField.won(this.botPlayer)) {
-                column = humanPlayer.makeMove();
-                if (!newField.isLegalMove(row, column)) {
-                    this.nextInputIsNotLegal(column, row, humanPlayer);
+
+            if (!field.won(currentPlayer)) {
+                changePlayer();
+                column = currentPlayer.makeMove();
+                if (!field.isLegalMove(row, column)) {
+                    nextInputIsNotLegal(column, row, currentPlayer);
                 } else {
-                    this.newField.applyMove(humanPlayer.move(column, row), humanPlayer);
+                    field.applyMove(currentPlayer.move(column, row), currentPlayer);
                 }
             }
-
-            if (!this.newField.won(humanPlayer)) {
-                column = this.botPlayer.makeMove();
-                if (!this.newField.isLegalMove(row, column)) {
-                    this.nextInputIsNotLegal(column, row, botPlayer);
-                } else {
-                   newField.applyMove(botPlayer.move(column, row), botPlayer);
-                }
-            }
-        } while (!newField.won(humanPlayer) && !newField.won(botPlayer));
-
-        newField.printField();
-        if (newField.won(humanPlayer)) {
+        }
+        field.printField();
+        if (field.won(player1)) {
             System.out.println("Winner is - Human!");
         }
-
-        if (newField.won(this.botPlayer)) {
+        if (field.won(player2)) {
             System.out.println("Winner is - Bot");
         }
 
     }
 
-/*    private int humanInput() {
-
-        System.out.print("Enter column from 1 to 7: ");
-        int column = this.scanner.nextInt();
-
-        while (column < 1 || column > 7) {
-
-            System.out.println("The number you have entered does not meet the requirements.");
-            System.out.println(" Please choose number between 1 and 7");
-            column = this.scanner.nextInt();
-
-            if (column >= 1 && column <= 7) {
-                break;
-            }
-        }
-        column--;
-        return column;
-    }*/
-
-/*
-    private int computerInput() {
-        int column = (int) (Math.random() * 7.0D);
-        return column;
-    }
-*/
-
-    private void nextInputIsNotLegal(int column, int row, Player player) {
-        boolean canMove = false;
-
-        do {
-            if (player == humanPlayer && !newField.isLegalMove(row, column)) {
-                row--;
-                if (row < 0) {
-                    System.out.println("This field is busy!");
-                    column = humanPlayer.makeMove();
-                    row = newField.getRow() - 1;
-                }
-            } else if (player == this.botPlayer && !newField.isLegalMove(row, column)) {
-                row--;
-                if (row < 0) {
-                    column = botPlayer.makeMove();
-                    row = newField.getRow() - 1;
-                }
-            }
-
-            if (newField.isLegalMove(row, column)) {
-                canMove = true;
-            }
-        } while (!canMove && !newField.draw());
-
-        newField.applyMove(player.move(column, row), player);
-    }
 
 }
 

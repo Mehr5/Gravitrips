@@ -37,10 +37,8 @@ public class Field {
             for (int column = 0; column < 7; ++column) {
                 System.out.print(this.field[row][column] + " ");
             }
-
             System.out.println();
         }
-
     }
 
     public void createNewGameField() {
@@ -49,16 +47,14 @@ public class Field {
                 this.field[i][j] = EMPTY;
             }
         }
-
     }
 
     public boolean isLegalMove(int row, int column) {
-        return this.field[row][column] == EMPTY;
-
+        return field[row][column] == EMPTY;
     }
 
     public void applyMove(Player.Move m, Player player) {
-        this.field[m.getRow()][m.getColumn()] = player.getSymbol();
+        field[m.getRow()][m.getColumn()] = player.getSymbol();
     }
 
     public boolean won(Player player) {
@@ -69,7 +65,8 @@ public class Field {
         int count = 0;
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
-                if (this.getField()[i][j] == player.getSymbol()) {
+                field[i][j] = new Field();
+                if (getField()[i][j] == player.getSymbol()) {
                     count++;
                 } else {
                     count = 0;
@@ -79,7 +76,6 @@ public class Field {
                 }
             }
         }
-
         return false;
     }
 
@@ -97,7 +93,6 @@ public class Field {
                 }
             }
         }
-
         return false;
     }
 
@@ -137,7 +132,6 @@ public class Field {
                 } else {
                     count = 0;
                 }
-
                 if (count == 4) {
                     return true;
                 }
