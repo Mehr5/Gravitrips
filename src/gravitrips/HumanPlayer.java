@@ -20,7 +20,6 @@ class HumanPlayer extends Player {
 
         System.out.print("Enter column from 1 to 7: ");
         int column = scanner.nextInt();
-
         if (scanner == null)
             throw new IllegalArgumentException("Scanner cannot be null");
 
