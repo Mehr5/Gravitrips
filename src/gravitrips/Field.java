@@ -25,6 +25,10 @@ public class Field {
         return ROWS;
     }
 
+    public int getColumn() {
+        return COLUMNS;
+    }
+
     public void printField() {
         int row;
         for (row = 0; row < 7; ++row) {
@@ -53,8 +57,8 @@ public class Field {
         return gameField[row][column] == EMPTY;
     }
 
-    public void applyMove(Player.Move m, Player player) {
-        gameField[m.getRow()][m.getColumn()] = player.getSymbol();
+    public void applyMove(Player player) {
+        gameField[getRow()][getColumn()] = (char) player.makeMove();
     }
 
 

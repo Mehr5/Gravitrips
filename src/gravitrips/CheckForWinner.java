@@ -11,11 +11,11 @@ public class CheckForWinner {
         return this.checkVertical(field, chip) || this.checkHorizontal(field, chip) || this.wonGeneralDiag(field, chip) || this.wonSecondDiag(field, chip);
     }
 
-    public boolean checkVertical(Field field, Chip chip){
+    public boolean checkVertical(Field field, Player player, Chip chip){
         int count = 0;
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
-                if (field.getGameField(i, j) == chip) {
+                if (field.getGameField(i, j) == player.getChip()) {
                     count++;
                 } else {
                     count = 0;
