@@ -46,10 +46,10 @@ public class Game {
     }
 
     public void run() {
-        field.createNewGameField();
+        field.printField();
         int row = field.getRow() - 1;
 
-        while (!field.won(player1) && !field.won(player2)) {
+       /* while (!field.won(player1) && !field.won(player2)) {
             field.printField();
             int column;
 
@@ -69,7 +69,7 @@ public class Game {
         }
         if (field.won(player2)) {
             System.out.println("Winner is - Bot");
-        }
+        }*/
 
     }
 
