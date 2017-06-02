@@ -7,15 +7,15 @@ import static gravitrips.Field.ROWS;
 public class CheckForWinner {
 
 
-    public boolean won(Field field, Chip chip) {
-        return this.checkVertical(field, chip) || this.checkHorizontal(field, chip) || this.wonGeneralDiag(field, chip) || this.wonSecondDiag(field, chip);
+    public boolean won(Field field, Player player, Chip chip) {
+        return this.checkVertical(field, player, chip) || this.checkHorizontal(field, chip) || this.wonGeneralDiag(field, chip) || this.wonSecondDiag(field, chip);
     }
 
     public boolean checkVertical(Field field, Player player, Chip chip){
         int count = 0;
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
-                if (field.getGameField(i, j) == player.getChip()) {
+                if (field.== player.getChip()) {
                     count++;
                 } else {
                     count = 0;

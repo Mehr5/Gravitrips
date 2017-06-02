@@ -11,6 +11,6 @@ public abstract class Player {
         return chip;
     }
 
-    public abstract int makeMove();
+    public abstract Chip makeMove();
 
 }
