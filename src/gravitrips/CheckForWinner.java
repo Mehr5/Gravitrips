@@ -7,15 +7,15 @@ import static gravitrips.Field.ROWS;
 public class CheckForWinner {
 
 
-    public boolean won(Field field, Player player) {
-        return this.checkVertical(field, player) || this.checkHorizontal(field, player) || this.wonGeneralDiag(field, player) || this.wonSecondDiag(field, player);
+    public boolean won(Field field, Chip chip) {
+        return this.checkVertical(field, chip) || this.checkHorizontal(field, chip) || this.wonGeneralDiag(field, chip) || this.wonSecondDiag(field, chip);
     }
 
-    private boolean checkVertical(Field field, Player player){
+    public boolean checkVertical(Field field, Chip chip){
         int count = 0;
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
-                if (field.getGameField(i, j) == player.getSymbol()) {
+                if (field.getGameField(i, j) == chip) {
                     count++;
                 } else {
                     count = 0;
@@ -28,7 +28,7 @@ public class CheckForWinner {
         return false;
     }
 
-    private boolean checkHorizontal(Field field, Player player) {
+    public boolean checkHorizontal(Field field, Player player) {
         int count = 0;
         for (int i = 0; i < COLUMNS; i++) {
             for (int j = 0; j < ROWS; j++) {
@@ -46,7 +46,7 @@ public class CheckForWinner {
     }
 
 
-    private boolean wonGeneralDiag(Field field,Player player) {
+    public boolean wonGeneralDiag(Field field,Player player) {
         int count = 0;
         for (int i = 4; i > 0; i--) {
             for (int j = 0; j < COLUMNS; j++) {
@@ -68,7 +68,7 @@ public class CheckForWinner {
     }
 
 
-    private boolean wonSecondDiag(Field field, Player player) {
+    public boolean wonSecondDiag(Field field, Player player) {
         int count = 0;
         for (int i = 4; i > 0; i--) {
             for (int j = 6; j > 0; j--) {

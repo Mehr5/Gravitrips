@@ -13,8 +13,8 @@ public class Game {
     public Game() {
         scanner = new Scanner(System.in);
         field = new Field();
-        player1 = new HumanPlayer('X');
-        player2 = new BotPlayer('O');
+        player1 = new HumanPlayer();
+        player2 = new BotPlayer();
     }
 
     public void changePlayer() {
@@ -45,11 +45,13 @@ public class Game {
         }
     }
 
+
     public void run() {
         field.printField();
-        int row = field.getRow() - 1;
+       /*
 
-       /* while (!field.won(player1) && !field.won(player2)) {
+       int row = field.getRow() - 1;
+       while (!field.won(player1) && !field.won(player2)) {
             field.printField();
             int column;
 

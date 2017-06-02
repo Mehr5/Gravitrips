@@ -1,18 +1,15 @@
 package gravitrips;
+
 import java.util.Scanner;
 
 class HumanPlayer extends Player {
 
-    HumanPlayer(char symbol){
-        super(symbol);
-    }
-
-    public Move move(int column, int row) {
-        return new Move(column, row);
+    public HumanPlayer() {
+        setChip(Chip.X);
     }
 
     @Override
-    public int makeMove() throws NullPointerException {
+    public int makeMove() {
 
         Scanner scanner = new Scanner(System.in);
 
