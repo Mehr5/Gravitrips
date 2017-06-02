@@ -26,7 +26,7 @@ public class Game {
     }
 
     private void nextInputIsNotLegal(int column, int row, Player player) {
-        boolean canMove = false;
+/*        boolean canMove = false;
 
         while (!canMove && !field.draw()) {
             if (!field.isLegalMove(row, column)) {
@@ -42,7 +42,7 @@ public class Game {
             }
             field.applyMove(player.move(column, row), player);
             changePlayer();
-        }
+        }*/
     }
 
 
